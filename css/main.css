@@ -1,0 +1,212 @@
+/* Typography */
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+/* Form */
+input[type="text"] {
+    box-sizing: border-box;
+    vertical-align: middle;
+
+    border: 3px solid;
+    height: 50px;
+    font-size: 1em;
+    padding: 0 20px;
+    transition: all .2s ease-in-out;
+}
+input[type="text"]:focus {
+    box-shadow: -3px -3px 0 violet,
+                -6px -6px 0 indigo,
+                -9px -9px 0 blue,
+                -12px -12px 0 green,
+                -15px -15px 0 yellow,
+                -18px -18px 0 orange,
+                -21px -21px 0 red;
+    outline: none;
+    border-radius: 0 6px 6px;
+}
+button {
+    display: inline-block;
+    margin: 0;
+    padding: 0 20px;
+    vertical-align: middle;
+
+    height: 50px;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+
+    background: #a5a5a5;
+    box-shadow: inset -4px -4px 0 rgba(0, 0, 0, .3),
+                inset 4px 4px 0 rgba(255, 255, 255, .5);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+}
+
+button:active {
+    background: #c0c0c0;
+    box-shadow: inset -4px -4px 0 rgba(255, 255, 255, .5),
+                inset 4px 4px 0 rgba(0, 0, 0, .3);
+}
+button:focus {
+    outline: none;
+}
+
+/* Helper classes */
+
+.hide {
+    display: none;
+    visibility: hidden;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+.padding {
+    padding: 16px;
+}
+.right {
+    float: right;
+}
+.left {
+    float: left;
+}
+
+/* Main Styles */
+body {
+    background: url('../img/background-pattern.png') center #1d0e7b;
+    background-attachment: fixed;
+    color: #000;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.container {
+    margin: 0 auto;
+    max-width: 800px;
+    box-sizing: border-box;
+}
+.main-background {
+    background: #e0ee86;
+    box-shadow: #000 0 0 0 16px;
+}
+.inner-background {
+    background: #544e7e;
+    color: #e0ee86;
+}
+
+/* Header */
+.main-header nav a {
+    padding: 20px;
+    display: inline-block;
+    color: #fff;
+    background: transparent;
+    transition: all .2s ease-in-out;
+}
+.main-header nav a:hover {
+    background: #fff;
+    color: #7b0e6c;
+    border-radius: 26px;
+}
+
+
+/* Columns */
+.one-third {
+    width: 33.33%;
+}
+
+/* Columns */
+.gugu-list .gugu {
+    position: relative;
+    display: inline-block;
+    padding: 20px;
+    color: #fff;
+    border-radius: 3px;
+    border: 3px solid rgba(0, 0, 0, .5);
+    margin-bottom: 3px;
+}
+.gugu-list .gugu span {
+    position: absolute;
+    bottom: 80%;
+    left: -3px;
+    z-index: 1;
+    padding: 8px;
+    background: rgba(0, 0, 0, .7);
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: all .2s ease-in-out;
+
+    visibility: hidden;
+    opacity: 0;
+}
+.gugu-list .gugu:hover span {
+    bottom: 100%;
+
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Gugu */
+.gugu-list .gugu:nth-child(8n+1) {
+    background: #BB00F9;
+}
+.gugu-list .gugu:nth-child(8n+2) {
+    background: #AC00E5;
+}
+.gugu-list .gugu:nth-child(8n+3) {
+    background: #9C00D1;
+}
+.gugu-list .gugu:nth-child(8n+4) {
+    background: #7C00A5;
+}
+.gugu-list .gugu:nth-child(8n+5) {
+    background: #630084;
+}
+.gugu-list .gugu:nth-child(8n+6) {
+    background: #7C00A5;
+}
+.gugu-list .gugu:nth-child(8n+7) {
+    background: #9C00D1;
+}
+.gugu-list .gugu:nth-child(8n+8) {
+    background: #AC00E5;
+}
+
+.gugu-form {
+    position: relative;
+}
+#gugu-send-effect {
+    background: #bb00f9;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+
+    visibility: hidden;
+    opacity: 0;
+}
+#gugu-send-effect.active {
+    transition: all .2s ease-in-out; 
+    top: 132px;
+    border-radius: 4px;
+    width: 54px;
+    height: 64px;
+
+    visibility: visible;
+    opacity: 1;
+}
