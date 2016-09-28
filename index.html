@@ -17,29 +17,36 @@
     </head>
     <body>
         <header class="main-header container">
-            <a href="#" class="logo">
+            <a href="/" class="logo">
                 <img src="img/logo.png" alt="gugu, a rede social da galera" />
             </a>
+            <!--
             <nav class="right">
+                <a href="#">Minha conta</a>
                 <a href="#">Sair</a>
             </nav>
+            -->
         </header>
 
         <div class="container main-background padding clearfix">
+            <!--
             <div class="right one-third inner-background padding">
                 <h2>@imaginamundo</h2>
                 <p>Descrição</p>
             </div>
+            -->
             <form id="gugu-form" class="gugu-form">
-                <p>
+                <p class="text-center">
                     <input id="gugu-input" type="text" placeholder="Manda um gugu ae" minlength="1" maxlength="4" autocomplete="off" required />
                     <span id="gugu-counter">4</span>
-                    <button id="gugu-send" type="submit">Mandar gugu</button>
+                    <button id="gugu-send" type="submit">Mandar <span class="mobile-hide">gugu</span></button>
                 </p>
                 <span id="gugu-send-effect"> </span>
             </form>
             
+            <!--
             <h1>Meus gugu</h1>
+            -->
             <p id="gugu-list" class="gugu-list">
                 <span class="gugu">Gugu
                     <span>6/6/2006 às 16:20</span>

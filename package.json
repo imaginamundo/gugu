@@ -1,0 +1,23 @@
+{
+  "name": "gugu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "mongodb": "^2.2.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://imaginamundo@github.com/imaginamundo/gugu.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imaginamundo/gugu/issues"
+  },
+  "homepage": "https://github.com/imaginamundo/gugu#readme"
+}

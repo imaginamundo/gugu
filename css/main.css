@@ -86,17 +86,31 @@ button:focus {
 .left {
     float: left;
 }
+.text-center {
+    text-align: center;
+}
+@media (max-width: 600px) {
+    .mobile-hide {
+        display: none;
+    }
+}
+.mobile-hide {
+    display: none;
+}
 
 /* Main Styles */
 body {
+    margin: 16px;
     background: url('../img/background-pattern.png') center #1d0e7b;
     background-attachment: fixed;
     color: #000;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    box-sizing: border-box;
 }
 .container {
     margin: 0 auto;
     max-width: 800px;
+    width: 100%;
     box-sizing: border-box;
 }
 .main-background {
@@ -137,11 +151,13 @@ body {
     border-radius: 3px;
     border: 3px solid rgba(0, 0, 0, .5);
     margin-bottom: 3px;
+    line-height: 1.5em;
 }
 .gugu-list .gugu span {
     position: absolute;
     bottom: 80%;
-    left: -3px;
+    right: 50%;
+    transform: translateX(50%);
     z-index: 1;
     padding: 8px;
     background: rgba(0, 0, 0, .7);
@@ -196,13 +212,15 @@ body {
     border-radius: 50%;
     position: absolute;
     top: 0;
+    left: 66px;
 
     visibility: hidden;
     opacity: 0;
 }
 #gugu-send-effect.active {
     transition: all .2s ease-in-out; 
-    top: 132px;
+    top: 66px;
+    left: 0;
     border-radius: 4px;
     width: 54px;
     height: 64px;

@@ -12,8 +12,6 @@
             guguValue = guguInput.value,
             userText = guguValue.replace(/^\s+/, '').replace(/\s+$/, '');
 
-        console.log(userText);
-        
         if (userText) {
             // Effect
             document.getElementById('gugu-send-effect').classList.add('active');
@@ -35,6 +33,10 @@
 
             var hour = currentTime.getHours()
             var minutes = currentTime.getMinutes()
+
+            if (minutes <= 9) {
+                minutes = '0' + minutes;
+            }
 
             if (hour == 1) {
                 today = dd + '/' + mm + '/' + yyyy + ' a ' + hour + ':' + minutes;
