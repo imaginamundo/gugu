@@ -8,13 +8,14 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://imaginamundo@github.com/imaginamundo/gugu.git"
   },
-  "author": "",
+  "author": "Dio",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/imaginamundo/gugu/issues"
