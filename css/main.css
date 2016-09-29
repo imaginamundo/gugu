@@ -56,6 +56,9 @@ button:focus {
     outline: none;
 }
 
+.gugu-form input[type="text"] {
+    width: 190px;
+}
 /* Helper classes */
 
 .hide {
@@ -93,9 +96,6 @@ button:focus {
     .mobile-hide {
         display: none;
     }
-}
-.mobile-hide {
-    display: none;
 }
 
 /* Main Styles */

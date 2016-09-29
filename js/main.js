@@ -108,7 +108,7 @@
             var i = '';
             for (i = 0; i < data.length; i++) {
                 var templateGugu = ' <span class="gugu">' + data[i].gugu +
-                                        '<span>' + data[i].date + '</span>'+
+                                        '<span class="mobile-hide">' + data[i].date + '</span>'+
                                    '</span> ';
 
                 document.getElementById('gugu-list').innerHTML += (templateGugu);
