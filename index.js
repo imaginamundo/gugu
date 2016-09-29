@@ -36,6 +36,8 @@ app.get('/list-gugu', (req, res) => {
         db = database;
         var findGugu = function(db, callback) {
             db.collection('gugu').find().toArray(function(erro, itens){
+
+                // db.getCollection('gugu').find().limit(50) futura paginação :D
                 console.log(itens);
                 res.json(itens);
             });
