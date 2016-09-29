@@ -1,68 +1,73 @@
 var http = require('http');
 var fs = require('fs');
 var path = require('path');
-var port = process.env.PORT || 8080;
+var bodyParser = require('body-parser');
+var express = require('express');
 
-http.createServer(function (request, response) {
-    console.log('request starting...');
-
-    var filePath = '.' + request.url;
-    if (filePath == './')
-        filePath = './index.html';
-
-    var extname = path.extname(filePath);
-    var contentType = 'text/html';
-    switch (extname) {
-        case '.js':
-            contentType = 'text/javascript';
-            break;
-        case '.css':
-            contentType = 'text/css';
-            break;
-        case '.json':
-            contentType = 'application/json';
-            break;
-        case '.png':
-            contentType = 'image/png';
-            break;      
-        case '.jpg':
-            contentType = 'image/jpg';
-            break;
-        case '.wav':
-            contentType = 'audio/wav';
-            break;
-    }
-
-    fs.readFile(filePath, function(error, content) {
-        if (error) {
-            if(error.code == 'ENOENT'){
-                fs.readFile('./404.html', function(error, content) {
-                    response.writeHead(200, { 'Content-Type': contentType });
-                    response.end(content, 'utf-8');
-                });
-            }
-            else {
-                response.writeHead(500);
-                response.end('Sorry, check with the site admin for error: '+error.code+' ..\n');
-                response.end(); 
-            }
-        }
-        else {
-            response.writeHead(200, { 'Content-Type': contentType });
-            response.end(content, 'utf-8');
-        }
-    });
-
-}).listen(port);
-console.log('Server running at http://127.0.0.1:8125/');
+var app = express();
 
 // Mongo DB
+var db;
 var mongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var mongoUrl = 'mongodb://imaginamundo:senha1234@ds041526.mlab.com:41526/gugu';
 
-mongoClient.connect(mongoUrl, function(err, db) {
-    assert.equal(null, err);
-    console.log("Connected correctly to server.");
-    db.close();
+
+// Static
+app.use('/css', express.static(__dirname + '/css'));
+app.use('/img', express.static(__dirname + '/img'));
+app.use('/js', express.static(__dirname + '/js'));
+
+// bodyParser
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({
+    extended: true
+})); // support encoded bodies
+
+// View
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname + '/index.html'));
+});
+
+// Get gugu
+app.get('/list-gugu', (req, res) => {
+    mongoClient.connect(mongoUrl, (err, database) => {
+        if (err) return console.log(err);
+        db = database;
+        var findGugu = function(db, callback) {
+            db.collection('gugu').find().toArray(function(erro, itens){
+                console.log(itens);
+                res.json(itens);
+            });
+        };
+
+        mongoClient.connect(mongoUrl, function(err, db) {
+            assert.equal(null, err);
+            findGugu(db, function() {
+                db.close();
+            });
+        });
+    });
+});
+
+// Post
+app.post('/post-gugu', function (req, res) {
+    console.log(req.body);
+    mongoClient.connect(mongoUrl, (err, database) => {
+        if (err) return console.log(err);
+        db = database;
+        db.collection('gugu').save(req.body, (err, result) => {
+            if (err) return console.log(err)
+            console.log('Saved to database');
+        });
+    });
+});
+
+
+  
+// Server
+var port = process.env.PORT || 8080;
+
+app.listen(port, function () {
+    console.log('Example app listening on port ' + port + '!');
 });

@@ -8,9 +8,10 @@
     var guguSendTimer = null;
 
     document.getElementById('gugu-send').onclick = function (e) {
-        var guguInput = document.getElementById('gugu-input'),
-            guguValue = guguInput.value,
-            userText = guguValue.replace(/^\s+/, '').replace(/\s+$/, '');
+        var guguInput = document.getElementById('gugu-input');
+        var guguPostValue = guguInput.value;
+        var guguValue = guguInput.value;
+        var userText = guguValue.replace(/^\s+/, '').replace(/\s+$/, '');
 
         if (userText) {
             // Effect
@@ -51,9 +52,9 @@
             
             /// gugu
             var gugu = document.createElement('span');
-            var guguValue = document.createTextNode(guguValue);
+            var guguPrint = document.createTextNode(guguValue);
                 gugu.className = 'gugu';
-                gugu.appendChild(guguValue);
+                gugu.appendChild(guguPrint);
                 gugu.appendChild(date);
 
             var space = document.createTextNode(' ');
@@ -62,6 +63,18 @@
 
             list.insertBefore(gugu, list.childNodes[0]);
             list.insertBefore(space, list.childNodes[0]);
+
+
+            // Post
+            var data = {
+                'gugu': guguValue,
+                'date': today
+            };
+
+            var request = new XMLHttpRequest();
+            request.open('POST', '/post-gugu', true);
+            request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+            request.send(JSON.stringify(data));
 
             // Clear input
             guguInput.value = '';
@@ -79,4 +92,37 @@
 
         e.preventDefault();
     };
+
+    // Get
+    var request = new XMLHttpRequest();
+    request.open('GET', '/list-gugu', true);
+
+    request.onload = function() {
+        document.getElementsByClassName('logo')[0].classList.add('active');
+
+        if (this.status >= 200 && this.status < 400) {
+            // Success!
+            var data = JSON.parse(this.response);
+            data.reverse();
+            
+            var i = '';
+            for (i = 0; i < data.length; i++) {
+                var templateGugu = ' <span class="gugu">' + data[i].gugu +
+                                        '<span>' + data[i].date + '</span>'+
+                                   '</span> ';
+
+                document.getElementById('gugu-list').innerHTML += (templateGugu);
+            }
+
+            document.getElementsByClassName('logo')[0].classList.remove('active');
+        }
+        else {
+            // We reached our target server, but it returned an error
+        }
+    };
+
+    request.onerror = function() {
+    };
+
+    request.send();
 })();
