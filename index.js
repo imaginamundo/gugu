@@ -38,6 +38,7 @@ app.get('/list-gugu', (req, res) => {
             db.collection('gugu').find().toArray(function(erro, itens){
 
                 // db.getCollection('gugu').find().limit(50) futura paginação :D
+                // db.getCollection('gugu').find().limit(10).skip(10)
                 console.log(itens);
                 res.json(itens);
             });
