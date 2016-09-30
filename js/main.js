@@ -113,7 +113,7 @@
 
     // Get
     var request = new XMLHttpRequest();
-    request.open('GET', '/list-gugu', true);
+    request.open('GET', '/list-gugu?page=1', true);
 
     request.onload = function() {
         document.getElementsByClassName('logo')[0].classList.add('active');
@@ -121,13 +121,12 @@
         if (this.status >= 200 && this.status < 400) {
             // Success!
             var data = JSON.parse(this.response);
-            data.reverse();
 
             var i = '';
             for (i = 0; i < data.length; i++) {
                 var templateGugu = ' <span class="gugu">' + data[i].gugu +
-                                    '<span class="mobile-hide">' + data[i].date + '</span>'+
-                                '</span> ';
+                                       '<span class="mobile-hide">' + data[i].date + '</span>'+
+                                   '</span> ';
 
                 document.getElementById('gugu-list').innerHTML += (templateGugu);
             }

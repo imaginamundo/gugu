@@ -34,12 +34,27 @@ app.get('/list-gugu', (req, res) => {
     mongoClient.connect(mongoUrl, (err, database) => {
         // if (err) return console.log(err);
         db = database;
+        var limit = 60;
+        if (req.body.limit) {
+            limit = red.body.limit;
+        }
+        
+        var page = 1;
+        if (req.body.page) {
+            page = red.body.page;
+        }
+
+        var skip = 0;
+        if (page > 1) {
+            skip = (page - 1) * limit;
+        }
+
         var findGugu = function(db, callback) {
-            db.collection('gugu').find().toArray(function(erro, itens){
+            db.collection('gugu').find().sort({ _id: -1 }).limit(limit).skip(skip).toArray(function(erro, itens){
+                
 
                 // db.getCollection('gugu').find().limit(50) futura paginação :D
-                // db.getCollection('gugu').find().limit(10).skip(10)
-                // onsole.log(itens);
+                // db.getCollection('gugu').
                 res.json(itens);
             });
         };
