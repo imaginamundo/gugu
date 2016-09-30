@@ -76,9 +76,30 @@ app.get('/list-gugu', (req, res) => {
 app.post('/post-gugu', function (req, res) {
     // console.log(req.body);
     if (req.body.gugu.length < 5 && req.body.date) {
+        // Time
+        var currentTime = new Date();
+        var dd = currentTime.getDate();
+        var mm = currentTime.getMonth() + 1;
+        var yyyy = currentTime.getFullYear();
+
+        var hour = currentTime.getHours()
+        var minutes = currentTime.getMinutes()
+
+        if (minutes <= 9) {
+            minutes = '0' + minutes;
+        }
+
+        if (hour == 1) {
+            today = dd + '/' + mm + '/' + yyyy + ' a ' + hour + ':' + minutes;
+        }
+        else {
+            today = dd + '/' + mm + '/' + yyyy + ' às ' + hour + ':' + minutes;
+        }
+
+
         var postJson = {
             'gugu': req.body.gugu,
-            'date': req.body.date
+            'date': today
         }
 
         mongoClient.connect(mongoUrl, (err, database) => {
@@ -91,7 +112,6 @@ app.post('/post-gugu', function (req, res) {
         });
     }
     res.sendStatus(201);
-    
 });
 
 
