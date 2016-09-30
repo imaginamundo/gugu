@@ -6,6 +6,7 @@
 
     // Send
     var guguSendTimer = null;
+    var guguErrorTimer = null;
 
     document.getElementById('gugu-send').onclick = function (e) {
         var guguInput = document.getElementById('gugu-input');
@@ -14,17 +15,6 @@
         var userText = guguValue.replace(/^\s+/, '').replace(/\s+$/, '');
 
         if (userText) {
-            // Effect
-            document.getElementById('gugu-send-effect').classList.add('active');
-
-            if (guguSendTimer) {
-                clearTimeout(guguSendTimer);
-            }
-
-            guguSendTimer = setTimeout(function(){
-                document.getElementById('gugu-send-effect').classList.remove('active');
-            }, 200);
-
             // Val
             /// Time
             var currentTime = new Date();
@@ -61,20 +51,48 @@
                 
             var list = document.getElementById('gugu-list');
 
-            list.insertBefore(gugu, list.childNodes[0]);
-            list.insertBefore(space, list.childNodes[0]);
-
-
             // Post
             var data = {
                 'gugu': guguValue,
                 'date': today
             };
 
-            var request = new XMLHttpRequest();
-            request.open('POST', '/post-gugu', true);
-            request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-            request.send(JSON.stringify(data));
+            if (data < 5 && date) {
+                // Fake print
+                list.insertBefore(gugu, list.childNodes[0]);
+                list.insertBefore(space, list.childNodes[0]);
+
+                // Effect
+                document.getElementById('gugu-send-effect').classList.add('active');
+
+                if (guguSendTimer) {
+                    clearTimeout(guguSendTimer);
+                }
+
+                guguSendTimer = setTimeout(function(){
+                    document.getElementById('gugu-send-effect').classList.remove('active');
+                }, 200);
+
+                // Send Post
+
+                var request = new XMLHttpRequest();
+                request.open('POST', '/post-gugu', true);
+                request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+                request.send(JSON.stringify(data));
+            }
+            else {
+                // Error effect
+                document.getElementById('error-message').classList.add('active');
+
+                if (guguSendTimer) {
+                    clearTimeout(guguErrorTimer);
+                }
+
+                guguErrorTimer = setTimeout(function(){
+                    document.getElementById('error-message').classList.remove('active');
+                }, 3000);
+            }
+            
 
             // Clear input
             guguInput.value = '';
@@ -104,12 +122,12 @@
             // Success!
             var data = JSON.parse(this.response);
             data.reverse();
-            
+
             var i = '';
             for (i = 0; i < data.length; i++) {
                 var templateGugu = ' <span class="gugu">' + data[i].gugu +
-                                        '<span class="mobile-hide">' + data[i].date + '</span>'+
-                                   '</span> ';
+                                    '<span class="mobile-hide">' + data[i].date + '</span>'+
+                                '</span> ';
 
                 document.getElementById('gugu-list').innerHTML += (templateGugu);
             }

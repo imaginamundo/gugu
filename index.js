@@ -32,14 +32,14 @@ app.get('/', function (req, res) {
 // Get gugu
 app.get('/list-gugu', (req, res) => {
     mongoClient.connect(mongoUrl, (err, database) => {
-        if (err) return console.log(err);
+        // if (err) return console.log(err);
         db = database;
         var findGugu = function(db, callback) {
             db.collection('gugu').find().toArray(function(erro, itens){
 
                 // db.getCollection('gugu').find().limit(50) futura paginação :D
                 // db.getCollection('gugu').find().limit(10).skip(10)
-                console.log(itens);
+                // console.log(itens);
                 res.json(itens);
             });
         };
@@ -57,10 +57,10 @@ app.get('/list-gugu', (req, res) => {
 app.post('/post-gugu', function (req, res) {
     console.log(req.body);
     mongoClient.connect(mongoUrl, (err, database) => {
-        if (err) return console.log(err);
+        // if (err) return console.log(err);
         db = database;
         db.collection('gugu').save(req.body, (err, result) => {
-            if (err) return console.log(err)
+            // if (err) return console.log(err)
             console.log('Saved to database');
         });
     });
