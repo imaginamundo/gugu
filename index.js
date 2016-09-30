@@ -10,7 +10,7 @@ var app = express();
 var db;
 var mongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
-var mongoUrl = MONGO_URL;
+var mongoUrl = process.env.MONGO_URL;
 
 
 // Static
