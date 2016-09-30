@@ -10,7 +10,7 @@ var app = express();
 var db;
 var mongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
-var mongoUrl = process.env.MONGO_URL;
+var mongoUrl = MONGO_URL;
 
 
 // Static
@@ -87,6 +87,7 @@ app.post('/post-gugu', function (req, res) {
             });
         });
     }
+    res.sendStatus(201);
     
 });
 
