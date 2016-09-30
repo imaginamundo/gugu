@@ -176,6 +176,7 @@ body {
     border: 3px solid rgba(0, 0, 0, .5);
     margin-bottom: 3px;
     line-height: 1.5em;
+    vertical-align: middle;
 }
 .gugu-list .gugu span {
     position: absolute;
