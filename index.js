@@ -12,7 +12,6 @@ var mongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var mongoUrl = process.env.MONGO_URL;
 
-
 // Static
 app.use('/css', express.static(__dirname + '/css'));
 app.use('/img', express.static(__dirname + '/img'));
@@ -76,12 +75,16 @@ app.get('/list-gugu', (req, res) => {
 // Post
 app.post('/post-gugu', function (req, res) {
     // console.log(req.body);
-
     if (req.body.gugu.length < 5 && req.body.date) {
+        var postJson = {
+            'gugu': req.body.gugu,
+            'date': req.body.date
+        }
+
         mongoClient.connect(mongoUrl, (err, database) => {
             // if (err) return console.log(err);
             db = database;
-            db.collection('gugu').save(req.body, (err, result) => {
+            db.collection('gugu').save(postJson, (err, result) => {
                 // if (err) return console.log(err)
                 console.log('Saved to database');
             });
