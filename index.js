@@ -39,7 +39,7 @@ app.get('/list-gugu', (req, res) => {
 
                 // db.getCollection('gugu').find().limit(50) futura paginação :D
                 // db.getCollection('gugu').find().limit(10).skip(10)
-                // console.log(itens);
+                // onsole.log(itens);
                 res.json(itens);
             });
         };
@@ -56,14 +56,18 @@ app.get('/list-gugu', (req, res) => {
 // Post
 app.post('/post-gugu', function (req, res) {
     console.log(req.body);
-    mongoClient.connect(mongoUrl, (err, database) => {
-        // if (err) return console.log(err);
-        db = database;
-        db.collection('gugu').save(req.body, (err, result) => {
-            // if (err) return console.log(err)
-            console.log('Saved to database');
+
+    if (req.body.gugu.length < 5 && req.body.date) {
+        mongoClient.connect(mongoUrl, (err, database) => {
+            // if (err) return console.log(err);
+            db = database;
+            db.collection('gugu').save(req.body, (err, result) => {
+                // if (err) return console.log(err)
+                console.log('Saved to database');
+            });
         });
-    });
+    }
+    
 });
 
 

@@ -57,7 +57,7 @@
                 'date': today
             };
 
-            if (data < 5 && date) {
+            if (data.gugu.length < 5 && data.date) {
                 // Fake print
                 list.insertBefore(gugu, list.childNodes[0]);
                 list.insertBefore(space, list.childNodes[0]);
