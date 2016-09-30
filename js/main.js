@@ -112,8 +112,9 @@
     };
 
     // Get
+    var page = 1;
     var request = new XMLHttpRequest();
-    request.open('GET', '/list-gugu?page=1', true);
+    request.open('GET', '/list-gugu?page=' + page, true);
 
     request.onload = function() {
         document.getElementsByClassName('logo')[0].classList.add('active');
@@ -130,16 +131,28 @@
 
                 document.getElementById('gugu-list').innerHTML += (templateGugu);
             }
+        }
 
-            document.getElementsByClassName('logo')[0].classList.remove('active');
-        }
-        else {
-            // We reached our target server, but it returned an error
-        }
+        document.getElementById('load-more').classList.add('active');
     };
 
     request.onerror = function() {
     };
 
     request.send();
+
+    // Loadmore
+    document.getElementById('load-more').onclick = function(e) {
+        page += 1;
+
+        // console.log(page);
+
+        document.getElementById('load-more').classList.remove('active');
+        
+        request.open('GET', '/list-gugu?page=' + page, true);
+
+        request.send();
+
+        e.preventDefault();
+    };
 })();

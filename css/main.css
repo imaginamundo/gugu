@@ -252,3 +252,24 @@ body {
     visibility: visible;
     opacity: 1;
 }
+
+/* Load more */
+.load-more {
+    background: white;
+    width: 100px;
+    display: inline-block;
+    padding: 50px;
+    border-radius: 40px;
+    font-size: 20px;
+    text-decoration: none;
+    color: #1b1b1b;
+
+    visibility: hidden;
+    opacity: 0;
+
+    transition: all .2s ease-in-out;
+}
+.load-more.active {
+    visibility: visible;
+    opacity: 1;
+}

@@ -29,25 +29,30 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
+function isInt(n) {
+    return n % 1 === 0;
+}
 // Get gugu
 app.get('/list-gugu', (req, res) => {
     mongoClient.connect(mongoUrl, (err, database) => {
         // if (err) return console.log(err);
         db = database;
         var limit = 60;
-        if (req.body.limit) {
-            limit = red.body.limit;
+        if (req.query.limit && isInt(req.query.limit)) {
+            limit = req.query.limit;
         }
         
         var page = 1;
-        if (req.body.page) {
-            page = red.body.page;
+        if (req.query.page && isInt(req.query.page)) {
+            page = req.query.page;
         }
 
         var skip = 0;
         if (page > 1) {
             skip = (page - 1) * limit;
         }
+
+        // console.log(req.query.page + ' ' + req.query.limit);
 
         var findGugu = function(db, callback) {
             db.collection('gugu').find().sort({ _id: -1 }).limit(limit).skip(skip).toArray(function(erro, itens){
@@ -70,7 +75,7 @@ app.get('/list-gugu', (req, res) => {
 
 // Post
 app.post('/post-gugu', function (req, res) {
-    console.log(req.body);
+    // console.log(req.body);
 
     if (req.body.gugu.length < 5 && req.body.date) {
         mongoClient.connect(mongoUrl, (err, database) => {
