@@ -10,7 +10,7 @@ var app = express();
 var db;
 var mongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
-var mongoUrl = 'mongodb://imaginamundo:senha1234@ds041526.mlab.com:41526/gugu';
+var mongoUrl = process.env.MONGO_URL;
 
 
 // Static
