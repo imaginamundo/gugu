@@ -10,7 +10,8 @@ var app = express();
 var db;
 var mongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
-var mongoUrl = process.env.MONGO_URL;
+// var mongoUrl = process.env.MONGO_URL;
+var mongoUrl = 'mongodb://imaginamundo-secure:senha12345@ds041526.mlab.com:41526/gugu';
 
 // Static
 app.use('/css', express.static(__dirname + '/css'));
@@ -77,13 +78,13 @@ app.post('/post-gugu', function (req, res) {
     // console.log(req.body);
     if (req.body.gugu.length < 5 && req.body.date) {
         // Time
-        var currentTime = new Date();
+        var currentTime = new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"});
         var dd = currentTime.getDate();
         var mm = currentTime.getMonth() + 1;
         var yyyy = currentTime.getFullYear();
 
-        var hour = currentTime.getHours()
-        var minutes = currentTime.getMinutes()
+        var hour = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
 
         if (minutes <= 9) {
             minutes = '0' + minutes;
