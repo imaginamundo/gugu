@@ -10,7 +10,7 @@ var app = express();
 var db;
 var mongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
-var mongoUrl = process.esnv.MONGO_URL;
+var mongoUrl = process.env.MONGO_URL;
 
 // Static
 app.use('/css', express.static(__dirname + '/css'));
