@@ -10,8 +10,8 @@ var app = express();
 var db;
 var mongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
-var mongoUrl = process.env.MONGO_URL;
-// var mongoUrl = 'mongodb://imaginamundo-secure:senha12345@ds041526.mlab.com:41526/gugu';
+// var mongoUrl = process.env.MONGO_URL;
+var mongoUrl = 'mongodb://imaginamundo-secure:senha12345@ds041526.mlab.com:41526/gugu';
 
 // Static
 app.use('/css', express.static(__dirname + '/css'));
@@ -61,10 +61,11 @@ app.get('/list-gugu', (req, res) => {
 
 // Post
 app.post('/post-gugu', function (req, res) {
-    // console.log(req.body);
+
     if (req.body.gugu.length < 5 && req.body.date) {
         // Time
-        var currentTime = new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"});
+        var currentTime = new Date();
+        // var currentTime = new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"});
         var dd = currentTime.getDate();
         var mm = currentTime.getMonth() + 1;
         var yyyy = currentTime.getFullYear();
@@ -89,13 +90,8 @@ app.post('/post-gugu', function (req, res) {
             'date': today
         }
 
-        mongoClient.connect(mongoUrl, (err, database) => {
-            // if (err) return console.log(err);
-            db = database;
-            db.collection('gugu').save(postJson, (err, result) => {
-                // if (err) return console.log(err)
-                console.log('Saved to database');
-            });
+        db.collection('gugu').save(postJson, (err, result) => {
+            console.log('Saved to database');
         });
     }
     res.sendStatus(201);
@@ -114,5 +110,4 @@ mongoClient.connect(mongoUrl, function(err, database) {
     app.listen(port, function () {
         console.log('Example app listening on port ' + port + '!');
     });
-
 });
