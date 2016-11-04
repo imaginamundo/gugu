@@ -111,6 +111,10 @@
         e.preventDefault();
     };
 
+    function hasWhiteSpace(s) {
+        return /\s/g.test(s);
+    }
+
     // Get
     var page = 1;
     var request = new XMLHttpRequest();
@@ -122,9 +126,32 @@
         if (this.status >= 200 && this.status < 400) {
             // Success!
             var data = JSON.parse(this.response);
-
             var i = '';
             for (i = 0; i < data.length; i++) {
+                if (!hasWhiteSpace(data[i].date)) {
+                    var currentTime = new Date(data[i].date);
+
+                    var dd = currentTime.getDate();
+                    var mm = currentTime.getMonth() + 1;
+                    var yyyy = currentTime.getFullYear();
+
+                    var hour = currentTime.getHours();
+                    var minutes = currentTime.getMinutes();
+
+                    if (minutes <= 9) {
+                        minutes = '0' + minutes;
+                    }
+
+                    if (hour == 1) {
+                        postTime = dd + '/' + mm + '/' + yyyy + ' a ' + hour + ':' + minutes;
+                    }
+                    else {
+                        postTime = dd + '/' + mm + '/' + yyyy + ' às ' + hour + ':' + minutes;
+                    }
+
+                    data[i].date = postTime;
+                }
+
                 var templateGugu = ' <span class="gugu">' + data[i].gugu +
                                        '<span class="mobile-hide">' + data[i].date + '</span>'+
                                    '</span> ';
